@@ -100,32 +100,35 @@ public class Main {
                     System.out.print(cgpaOfStudents.get(k)+" ");
                 }
 
-                for (int j=1;j<=n;j++){
-                    if(j%2!=0){
-                        tmp = 0;
-                        //create threads
-                        for(int k=0;k<threadNums;k++)
-                        {
-                            Thread t = new Thread(new compare(n));
-                            mythreads[k] = t;
-                            t.start();
+                if(n>1){
+                    for (int j=1;j<=n;j++){
+                        if(j%2!=0){
+                            tmp = 0;
+                            //create threads
+                            for(int k=0;k<threadNums;k++)
+                            {
+                                Thread t = new Thread(new compare(n));
+                                mythreads[k] = t;
+                                t.start();
+                            }
+                            for(int k=0;k<threadNums;k++){
+                                mythreads[k].join();
+                            }
                         }
-                        for(int k=0;k<threadNums;k++){
-                            mythreads[k].join();
-                        }
-                    }
-                    else {
-                        tmp = 1;
-                        for(int k=0;k<threadNums-1;k++){
-                            Thread t = new Thread(new compare(n));
-                            mythreads[k] = t;
-                            t.start();
-                        }
-                        for(int k=0;k<threadNums-1;k++){
-                            mythreads[k].join();
+                        else {
+                            tmp = 1;
+                            for(int k=0;k<threadNums-1;k++){
+                                Thread t = new Thread(new compare(n));
+                                mythreads[k] = t;
+                                t.start();
+                            }
+                            for(int k=0;k<threadNums-1;k++){
+                                mythreads[k].join();
+                            }
                         }
                     }
                 }
+
                 System.out.println(" ");
                 System.out.println("After sorting:"+n);
                 for (int k=0;k<n;k++){
@@ -154,7 +157,7 @@ class compare implements Runnable{
         int index = tmp;
         tmp = tmp+2;
         Float temp;
-        if (cgpaOfStudents.get(index) < cgpaOfStudents.get(index+1))
+        if (cgpaOfStudents.get(index) < cgpaOfStudents.get(index+1) )
         {
             temp = cgpaOfStudents.get(index);
             cgpaOfStudents.set(index,cgpaOfStudents.get(index+1));
