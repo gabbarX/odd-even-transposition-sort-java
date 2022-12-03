@@ -1,4 +1,6 @@
 package org.example;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,16 +12,17 @@ public class Main {
     public static int[] nums = {1,10,100,1000,10000};
     public static ArrayList<Float> cgpaOfStudents = new ArrayList<Float>();
     public static int tmp;
+    static Instant start;
+    static Instant finish;
+    static long timeElapsed;
     public static void oddEvenSort(int n)
     {
-        boolean isSorted = false; // Initially array is unsorted
+        boolean isSorted = false;
 
         while (!isSorted)
         {
             isSorted = true;
             Float temp;
-
-            // Perform Bubble sort on odd indexed element
             for (int i=1; i<=n-2; i=i+2)
             {
                 if (cgpaOfStudents.get(i) < cgpaOfStudents.get(i+1))
@@ -31,7 +34,6 @@ public class Main {
                 }
             }
 
-            // Perform Bubble sort on even indexed element
             for (int i=0; i<=n-2; i=i+2)
             {
                 if (cgpaOfStudents.get(i) < cgpaOfStudents.get(i+1))
@@ -43,7 +45,6 @@ public class Main {
                 }
             }
         }
-        return;
     }
     public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
@@ -71,14 +72,17 @@ public class Main {
                     System.out.print(cgpaOfStudents.get(k)+" ");
                 }
                 System.out.println(" ");
+                start = Instant.now();
                 oddEvenSort(n);
-
+                finish = Instant.now();
 //                System.out.println(" ");
                 System.out.println("After sorting");
                 for (int k=0;k<n;k++){
                     System.out.print(cgpaOfStudents.get(k)+" ");
                 }
-                System.out.print("\n");
+                System.out.println(" ");
+                System.out.println("Time taken: "+Duration.between(start,finish).toNanos()+" Nano Seconds, "+Duration.between(start,finish).toSeconds()+" Seconds");
+//                System.out.print("\n");
                 cgpaOfStudents.clear();
 
             }
@@ -96,6 +100,7 @@ public class Main {
                 }
                 System.out.println(" ");
                 System.out.println("Before sorting:"+n);
+                start = Instant.now();
                 for (int k=0;k<n;k++){
                     System.out.print(cgpaOfStudents.get(k)+" ");
                 }
@@ -128,12 +133,15 @@ public class Main {
                         }
                     }
                 }
+                finish = Instant.now();
 
                 System.out.println(" ");
                 System.out.println("After sorting:"+n);
                 for (int k=0;k<n;k++){
                     System.out.print(cgpaOfStudents.get(k)+" ");
                 }
+                System.out.println(" ");
+                System.out.println("Time taken: "+Duration.between(start,finish).toNanos()+" Nano Seconds, "+Duration.between(start,finish).toSeconds()+" Seconds");
 
                 cgpaOfStudents.clear();
             }
